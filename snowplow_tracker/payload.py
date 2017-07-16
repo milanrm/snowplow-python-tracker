@@ -79,13 +79,13 @@ class Payload:
 
         if dict_ is not None and dict_ != {}:
 
-            json_dict = json.dumps(dict_, ensure_ascii=False)
+            json_dict = json.dumps(dict_)
 
             if encode_base64:
-                encoded_dict = base64.urlsafe_b64encode(json_dict.encode("utf-8"))
-                if not isinstance(encoded_dict, str):
-                    encoded_dict = encoded_dict.decode("utf-8")
-                self.add(type_when_encoded, encoded_dict)                
+                if not isinstance(json_dict, str):
+                    json_dict = json_dict.decode("utf-8")
+                encoded_dict = base64.urlsafe_b64encode(json_dict)
+                self.add(type_when_encoded, encoded_dict)               
 
             else:
                 self.add(type_when_not_encoded, json_dict)
